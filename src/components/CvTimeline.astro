@@ -1,0 +1,27 @@
+---
+interface Item { period: string; title: string; org?: string; detail?: string; }
+interface Props { items: Item[]; }
+const { items } = Astro.props;
+---
+<ol class="cvtl">
+  {items.map(it => (
+    <li class="row">
+      <span class="period">{it.period}</span>
+      <div class="body">
+        <p class="ttl">{it.title}</p>
+        {it.org && <p class="org">{it.org}</p>}
+        {it.detail && <p class="dtl muted">{it.detail}</p>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+.cvtl{list-style:none;margin:0;padding:0;border-left:1px solid var(--border)}
+.cvtl .row{position:relative;padding:.2rem 0 1.2rem 1.1rem}
+.cvtl .row::before{content:'';position:absolute;left:-4px;top:.42rem;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.period{font-size:.8rem;color:var(--muted);font-weight:600}
+.ttl{color:var(--text);font-weight:700;margin:.15rem 0 0}
+.org{color:var(--text-body);margin:.1rem 0 0;font-size:.92rem}
+.dtl{font-size:.86rem;margin:.2rem 0 0}
+</style>

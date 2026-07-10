@@ -1,0 +1,16 @@
+---
+interface Props { area: { name: string; tags: readonly string[]; blurb: string; }; }
+const { area } = Astro.props;
+---
+<article class="area card">
+  <h3 class="ttl">{area.name}</h3>
+  <p class="blurb">{area.blurb}</p>
+  {area.tags.length > 0 && <p class="tags">{area.tags.map(t => <span class="tag">{t}</span>)}</p>}
+</article>
+
+<style>
+.area{display:flex;flex-direction:column}
+.ttl{font-size:1.08rem;margin:0 0 .35rem}
+.blurb{color:var(--text-body);font-size:.92rem;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:.7rem 0 0}
+</style>
