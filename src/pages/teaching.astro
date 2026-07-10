@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import CourseCard from '../components/CourseCard.astro';
+import { profile } from '../data/profile';
+---
+<BaseLayout title="Teaching — Saiful Islam Salim" current="teaching">
+  <Section title="Courses" eyebrow="Teaching Assistant">
+    <div class="grid grid--3">
+      {profile.teaching.map(c => <CourseCard course={c} />)}
+    </div>
+  </Section>
+
+  <Section title="Professional service" eyebrow="Peer review">
+    <p class="muted">Reviewer</p>
+    <ul>{profile.services.reviewer.map(s => <li>{s}</li>)}</ul>
+    <p class="muted" style="margin-top:1rem">Sub-reviewer</p>
+    <ul>{profile.services.subReviewer.map(s => <li>{s}</li>)}</ul>
+  </Section>
+
+  <Section title="Mentoring" eyebrow="Former student collaborators">
+    <table class="mentor-table">
+      <thead><tr><th>Student</th><th>While at</th><th>Now at</th></tr></thead>
+      <tbody>
+        {profile.mentoring.map(m => (
+          <tr><td>{m.name}</td><td>{m.from}</td><td>{m.now || '—'}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </Section>
+</BaseLayout>
+
+<style>
+.mentor-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.mentor-table th,.mentor-table td{padding:.4rem .6rem;border-bottom:1px solid var(--border);text-align:left}
+.mentor-table th{color:var(--muted);font-weight:600;font-size:.8rem}
+ul{margin:.2rem 0 0;padding-left:1.2rem}
+ul li{margin:.2rem 0}
+</style>
