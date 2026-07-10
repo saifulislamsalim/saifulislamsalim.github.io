@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import PublicationList from '../components/PublicationList.astro';
 import ResearchAreaCard from '../components/ResearchAreaCard.astro';
+import CvTimeline from '../components/CvTimeline.astro';
 import { getCollection } from 'astro:content';
 import { path } from '../utils/paths';
 import { profile } from '../data/profile';
@@ -11,6 +12,14 @@ import { selectFeatured } from '../utils/milestones';
 
 const pubs = (await getCollection('publications')).map(e => e.data);
 const featured = selectFeatured(pubs);
+
+const eduItems = profile.education.map(e => ({
+  period: e.period,
+  title: e.degree,
+  org: `${e.school} · ${e.location}`,
+  detail: ['focus' in e && e.focus && `Focus: ${e.focus}`, e.advisor && `Advisor: ${e.advisor}`, 'thesis' in e && e.thesis && `Thesis: "${e.thesis}"`].filter(Boolean).join(' · '),
+}));
+const expItems = profile.experience.map(x => ({ period: x.period, title: x.role, org: x.org, detail: x.detail }));
 ---
 <BaseLayout title="Saiful Islam Salim — Home" current="home">
   <Hero />
@@ -27,7 +36,12 @@ const featured = selectFeatured(pubs);
     <p style="margin-top:1.2rem"><a class="btn btn--ghost" href={path('/research')}>More about my research →</a></p>
   </Section>
 
-  <Section title="Timeline" eyebrow="Events & milestones" id="timeline-tease">
-    <p>A running log of paper acceptances, awards, talks, and service. <a href={path('/timeline')}>Open the timeline →</a></p>
+  <Section title="Education" eyebrow="Degrees" id="education">
+    <CvTimeline items={eduItems} />
   </Section>
+
+  <Section title="Experience" eyebrow="Appointments" id="experience">
+    <CvTimeline items={expItems} />
+  </Section>
+
 </BaseLayout>

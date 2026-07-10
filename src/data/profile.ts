@@ -1,7 +1,14 @@
 export const profile = {
   name: { full: 'Saiful Islam Salim', first: 'Saiful Islam', last: 'Salim' },
   role: 'PhD Candidate, Computer Science — University of Arizona',
-  bio: 'My research spans natural language processing, machine learning, and security — building systems that are robust, interpretable, and useful.',
+  bio: 'I work at the intersection of natural language processing, machine learning, and security — building language models whose reasoning can be traced and whose misuse can be anticipated.',
+  // Rendered with set:html in Hero.astro so the adviser links work — keep any
+  // markup here to simple <a> tags.
+  about: [
+    'Hello! I\'m Saiful Islam Salim, a PhD candidate in Computer Science at the <a href="https://www.arizona.edu/" target="_blank" rel="noopener noreferrer">University of Arizona</a>, advised by <a href="https://surdeanu.cs.arizona.edu/mihai/" target="_blank" rel="noopener noreferrer">Prof. Mihai Surdeanu</a>. I work at the intersection of natural language processing, machine learning, and security. Through my research, I aim to build language models we can trust: models whose reasoning can be traced and whose misuse can be anticipated and blunted.',
+    'Before Arizona, I completed my bachelor\'s and master\'s in Computer Science and Engineering at <a href="https://www.buet.ac.bd/" target="_blank" rel="noopener noreferrer">BUET</a>, advised by <a href="https://sites.google.com/site/abmalimalislam/home" target="_blank" rel="noopener noreferrer">Prof. A. B. M. Alim Al Islam</a>. There I built low-cost sensing systems and traffic simulation tools for real-world problems in developing countries.',
+    'Outside research, I love traveling and playing cricket.',
+  ],
   contacts: {
     email: 'saifulislam@arizona.edu',
     linkedin: 'https://www.linkedin.com/in/saiful-islam-salim',
