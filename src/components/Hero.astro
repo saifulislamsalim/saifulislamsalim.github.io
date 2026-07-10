@@ -1,6 +1,5 @@
 ---
 import { profile } from '../data/profile';
-import { path } from '../utils/paths';
 ---
 <section class="hero">
   <div class="wrap">
@@ -8,8 +7,7 @@ import { path } from '../utils/paths';
     <h1>{profile.name.full}<span class="hero-accent">.</span></h1>
     <p class="hero-bio">{profile.bio}</p>
     <p class="hero-ctas">
-      <a class="btn" href={path('/cv')}>Download CV</a>
-      <a class="btn btn--ghost" href={`mailto:${profile.contacts.email}`}>Get in touch</a>
+      <a class="btn" href={`mailto:${profile.contacts.email}`}>Get in touch</a>
     </p>
   </div>
 </section>

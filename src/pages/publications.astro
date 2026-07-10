@@ -16,9 +16,8 @@ const post = all.filter(p => p.type === 'poster');
 const countOf = (a: Publication[]) => `${a.length}`;
 ---
 <BaseLayout title="Publications — Saiful Islam Salim" current="publications">
-  <Section title="Publications" eyebrow={`${countOf(conf)} conference · ${countOf(jour)} journal · ${countOf(post)} poster`}>
-    <p class="muted">Author lists and venue strings are transcribed from the CV. My name is bolded to highlight first-authorship. <span class="muted">(★ marks featured / award work.)</span></p>
-  </Section>
+  <Section title="Publications" eyebrow={`${countOf(conf)} conference · ${countOf(jour)} journal · ${countOf(post)} poster`} />
+
   <Section title="Conference" eyebrow="Full papers">
     <PublicationList pubs={conf} />
   </Section>

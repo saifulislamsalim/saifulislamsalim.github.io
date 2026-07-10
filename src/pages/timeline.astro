@@ -12,7 +12,6 @@ const milestones = buildMilestones({ publications, events });
 ---
 <BaseLayout title="Timeline — Saiful Islam Salim" current="timeline">
   <Section title="Timeline" eyebrow="Events, awards, talks & publications">
-    <p class="muted">A reverse-chronological log — each accepted paper becomes a milestone automatically; awards, talks, education, and service are added by hand.</p>
-    <div style="margin-top:1.4rem"><MilestoneTimeline milestones={milestones} /></div>
+    <MilestoneTimeline milestones={milestones} />
   </Section>
 </BaseLayout>

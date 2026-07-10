@@ -9,7 +9,7 @@ const edu = profile.education.map(e => ({
   period: e.period,
   title: e.degree,
   org: `${e.school} · ${e.location}`,
-  detail: [e.gpa && `GPA: ${e.gpa}`, 'focus' in e && e.focus && `Focus: ${e.focus}`, e.advisor && `Advisor: ${e.advisor}`, 'thesis' in e && e.thesis && `Thesis: "${e.thesis}"`].filter(Boolean).join(' · '),
+  detail: ['focus' in e && e.focus && `Focus: ${e.focus}`, e.advisor && `Advisor: ${e.advisor}`, 'thesis' in e && e.thesis && `Thesis: "${e.thesis}"`].filter(Boolean).join(' · '),
 }));
 const expItems = profile.experience.map(x => ({ period: x.period, title: x.role, org: x.org, detail: x.detail }));
 ---
@@ -37,18 +37,10 @@ const expItems = profile.experience.map(x => ({ period: x.period, title: x.role,
     <ul>{profile.extracurricular.map(x => <li>{x}</li>)}</ul>
   </Section>
 
-  <Section title="References" eyebrow="Available upon request / listed in CV">
-    <div class="grid grid--2">
-      {profile.references.map(r => (
-        <p class="ref"><b>{r.name}</b><br /><span class="muted">{r.titles}</span><br /><span class="muted">{r.org}</span><br /><a href={`mailto:${r.email}`}>{r.email}</a></p>
-      ))}
-    </div>
-  </Section>
 </BaseLayout>
 
 <style>
 .award-list{list-style:none;padding:0;margin:0}
 .award-list li{padding:.5rem 0;border-bottom:1px solid var(--border)}
 ul{margin:.2rem 0 0;padding-left:1.2rem}
-.ref{color:var(--text-body);font-size:.92rem}
 </style>
