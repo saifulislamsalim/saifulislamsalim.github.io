@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { profile } from '../data/profile';
+
+interface Props {
+  title?: string;
+  current?: 'home' | 'research' | 'publications' | 'teaching' | 'timeline' | 'cv';
+  description?: string;
+}
+const { title = 'Saiful Islam Salim', current, description = profile.bio } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {/* no-FOUC: set theme before paint. Runs synchronously in <head>. */}
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+      document.addEventListener('click', function (e) {
+        var b = e.target && e.target.closest ? e.target.closest('[data-theme-toggle]') : null;
+        if (!b) return;
+        var cur = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        var next = cur === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e2) {}
+      });
+    </script>
+  </head>
+  <body>
+    <Header current={current} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

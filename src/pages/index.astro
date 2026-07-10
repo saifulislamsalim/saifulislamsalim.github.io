@@ -1,5 +1,10 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<html lang="en"><head><meta charset="utf-8" /><title>Home</title></head>
-<body><h1>Saiful Islam Salim</h1><p>scaffold ok</p></body></html>
+<BaseLayout title="Saiful Islam Salim — Home" current="home">
+  <section class="wrap stack" style="padding:3rem 0">
+    <p class="eyebrow">Scaffold</p>
+    <h1>Saiful Islam Salim</h1>
+    <p class="muted">Shell builds and the theme toggle should work.</p>
+  </section>
+</BaseLayout>
