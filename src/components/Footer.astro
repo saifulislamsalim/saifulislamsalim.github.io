@@ -1,5 +1,8 @@
 ---
 import { profile } from '../data/profile';
+import { path } from '../utils/paths';
+import { visitorsSchema } from '../content/schemas';
+import rawVisitors from '../data/visitors.json';
 
 // Rendered at build time — every deploy stamps the footer with its build date.
 const updated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -9,6 +12,8 @@ const year = new Date().getFullYear();
 // expose the raw address to harvesters).
 const obfuscate = (email: string) => email.replace('@', 'AT').replace(/\./g, 'DOT');
 const emails = [profile.contacts.email, profile.contacts.emailAlt].filter(Boolean).map(obfuscate);
+
+const visitors = visitorsSchema.parse(rawVisitors);
 ---
 <footer class="site-footer">
   <div class="wrap">
@@ -38,7 +43,7 @@ const emails = [profile.contacts.email, profile.contacts.emailAlt].filter(Boolea
         </a>
       </li>
     </ul>
-    <p class="muted built">© {year} {profile.name.full} · Built with Astro · Last updated {updated}</p>
+    <p class="muted built">© {year} {profile.name.full} · Built with Astro · Last updated {updated}{visitors.total > 0 && <> · <a href={path('/visitors')}>{visitors.total.toLocaleString('en-US')} visitors</a></>}</p>
   </div>
 </footer>
 
