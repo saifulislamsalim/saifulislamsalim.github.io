@@ -1,0 +1,19 @@
+---
+import PublicationCard from './PublicationCard.astro';
+import type { Publication } from '../content/schemas';
+
+interface Props { pubs: Publication[]; }
+const { pubs } = Astro.props;
+---
+{pubs.length === 0 ? (
+  <p class="muted">No publications yet.</p>
+) : (
+  <ul class="pub-list">
+    {pubs.map(p => <PublicationCard pub={p} />)}
+  </ul>
+)}
+
+<style>
+.pub-list{list-style:none;margin:0;padding:0}
+.pub-list > .pub:first-child{padding-top:0}
+</style>

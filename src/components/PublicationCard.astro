@@ -1,0 +1,40 @@
+---
+import Badge from './Badge.astro';
+import { path } from '../utils/paths';
+import type { Publication } from '../content/schemas';
+
+interface Props { pub: Publication; }
+const { pub } = Astro.props;
+const ME = 'Saiful Islam Salim';
+const authors = pub.authors.map(a => a === ME ? `<b>${a}</b>` : a).join(', ');
+const yearStr = String(pub.year);
+const venueLine = [pub.venue, yearStr].filter(Boolean).join(' · ');
+---
+<li class="pub">
+  <p class="pub-title">{pub.title}</p>
+  <p class="pub-authors" set:html={authors}></p>
+  <p class="pub-venue">
+    {venueLine}
+    {pub.status === 'under-review' && <Badge label="Under review" tone="accent" />}
+    {pub.award && <Badge label={pub.award} tone="award" />}
+  </p>
+  {pub.tags.length > 0 && (
+    <p class="pub-tags">{pub.tags.map(t => <span class="tag">{t}</span>)}</p>
+  )}
+  {(pub.pdf || pub.url) && (
+    <p class="pub-links">
+      {pub.pdf && <a href={path(`/papers/${pub.pdf}`)} target="_blank" rel="noopener noreferrer">PDF</a>}
+      {pub.url && <a href={pub.url} target="_blank" rel="noopener noreferrer">Link ↗</a>}
+    </p>
+  )}
+</li>
+
+<style>
+.pub{list-style:none;padding:1rem 0;border-bottom:1px solid var(--border)}
+.pub-title{color:var(--text);font-weight:700;font-size:1.02rem;margin:0}
+.pub-authors{color:var(--text-body);font-size:.92rem;margin:.3rem 0}
+.pub-venue{color:var(--muted);font-size:.84rem;margin:.3rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.pub-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 0}
+.pub-links{font-size:.86rem;display:flex;gap:1rem;margin:.45rem 0 0}
+.pub-links a{font-weight:600}
+</style>
