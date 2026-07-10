@@ -24,24 +24,23 @@ const expItems = profile.experience.map(x => ({ period: x.period, title: x.role,
 <BaseLayout title="Saiful Islam Salim — Home" current="home">
   <Hero />
 
-  <Section title="Featured work" eyebrow="Publications" id="featured">
-    <PublicationList pubs={featured} />
-    <p style="margin-top:1.2rem"><a class="btn btn--ghost" href={path('/publications')}>All publications →</a></p>
-  </Section>
-
-  <Section title="Research" eyebrow="What I work on" id="research">
-    <div class="grid grid--2">
-      {profile.researchAreas.map(a => <ResearchAreaCard area={a} />)}
-    </div>
-    <p style="margin-top:1.2rem"><a class="btn btn--ghost" href={path('/research')}>More about my research →</a></p>
-  </Section>
-
   <Section title="Education" eyebrow="Degrees" id="education">
     <CvTimeline items={eduItems} />
   </Section>
 
   <Section title="Experience" eyebrow="Appointments" id="experience">
     <CvTimeline items={expItems} />
+  </Section>
+
+  <Section title="Research" eyebrow="What I work on" id="research">
+    <div class="grid grid--2">
+      {profile.researchAreas.map(a => <ResearchAreaCard area={a} />)}
+    </div>
+  </Section>
+
+  <Section title="Featured work" eyebrow="Publications" id="featured">
+    <PublicationList pubs={featured} />
+    <p style="margin-top:1.2rem"><a class="btn btn--ghost" href={path('/publications')}>All publications →</a></p>
   </Section>
 
 </BaseLayout>
