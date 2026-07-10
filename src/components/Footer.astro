@@ -4,18 +4,23 @@ import { path } from '../utils/paths';
 
 // Rendered at build time — every deploy stamps the footer with its build date.
 const updated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+// Scraper-resistant email display: no mailto link (a mailto href would still
+// expose the raw address to harvesters).
+const emailObfuscated = profile.contacts.email.replace('@', 'AT').replace(/\./g, 'DOT');
 ---
 <footer class="site-footer">
   <div class="wrap">
     <p class="foot-name">{profile.name.full}</p>
     <p class="muted">{profile.role}</p>
     <ul class="foot-links">
-      <li><a href={`mailto:${profile.contacts.email}`}>{profile.contacts.email}</a></li>
+      <li><span class="email">{emailObfuscated}</span></li>
       <li><a href={profile.contacts.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       {profile.contacts.scholar ? <li><a href={profile.contacts.scholar} target="_blank" rel="noopener noreferrer">Google Scholar</a></li> : null}
       {profile.contacts.github ? <li><a href={profile.contacts.github} target="_blank" rel="noopener noreferrer">GitHub</a></li> : null}
+      <li><a href={path('/cv')}>CV</a></li>
     </ul>
-    <p class="muted built">Built with Astro · <a href={path('/cv')}>CV</a> · Last updated {updated}</p>
+    <p class="muted built">Built with Astro · Last updated {updated}</p>
   </div>
 </footer>
 
@@ -24,5 +29,6 @@ const updated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'nu
 .foot-name{color:var(--text);font-weight:700;margin:0 0 .15rem}
 .foot-links{list-style:none;padding:0;margin:.6rem 0;display:flex;flex-wrap:wrap;gap:.4rem 1rem}
 .foot-links li{font-size:.9rem}
+.email{color:var(--text-body)}
 .built{font-size:.78rem;margin-top:1.2rem}
 </style>

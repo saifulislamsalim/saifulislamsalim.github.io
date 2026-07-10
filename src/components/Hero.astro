@@ -6,9 +6,6 @@ import { profile } from '../data/profile';
     <p class="eyebrow">{profile.role}</p>
     <h1>{profile.name.full}<span class="hero-accent">.</span></h1>
     <p class="hero-bio">{profile.bio}</p>
-    <p class="hero-ctas">
-      <a class="btn" href={`mailto:${profile.contacts.email}`}>Get in touch</a>
-    </p>
   </div>
 </section>
 
@@ -17,6 +14,5 @@ import { profile } from '../data/profile';
 .hero h1{font-size:clamp(2.2rem,6vw,4rem);margin:.4rem 0 0}
 .hero-accent{color:var(--accent)}
 .hero-bio{max-width:54ch;font-size:1.06rem;color:var(--text-body);margin-top:1.1rem}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem}
 @media(max-width:760px){.hero{padding:2.6rem 0 2rem}}
 </style>
