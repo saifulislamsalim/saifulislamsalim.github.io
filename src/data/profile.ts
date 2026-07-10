@@ -5,8 +5,8 @@ export const profile = {
   contacts: {
     email: 'saifulislam@arizona.edu',
     linkedin: 'https://www.linkedin.com/in/saiful-islam-salim',
-    scholar: '',   // REPLACE WITH YOUR Google Scholar profile URL when available
-    github: '',    // REPLACE WITH YOUR GitHub URL when available
+    scholar: 'https://scholar.google.com/citations?user=PRLujl4AAAAJ&hl=en',
+    github: 'https://github.com/Saifulislamsalim79',
     advisor: { name: 'Dr. Mihai Surdeanu', email: 'msurdeanu@arizona.edu' },
   },
   education: [
