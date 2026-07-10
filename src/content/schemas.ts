@@ -34,3 +34,12 @@ export type Publication = z.infer<typeof publicationsSchema>;
 export type Event = z.infer<typeof eventsSchema>;
 export type PubKind = z.infer<typeof pubKind>;
 export type EventKind = z.infer<typeof eventKind>;
+
+// Visitor stats written by scripts/fetch-visitor-stats.mjs (keep the script's
+// inline copy of this shape in sync). Countries key: ISO 3166-1 alpha-2, uppercase.
+export const visitorsSchema = z.object({
+  updated: z.string(),                       // 'YYYY-MM-DD', or '' before the first pipeline run
+  total: z.number().int().nonnegative(),
+  countries: z.record(z.string().regex(/^[A-Z]{2}$/), z.number().int().positive()),
+});
+export type VisitorsData = z.infer<typeof visitorsSchema>;
