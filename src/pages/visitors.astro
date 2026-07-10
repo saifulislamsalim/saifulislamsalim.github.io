@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import world from '@svg-maps/world';
+import { visitorsSchema } from '../content/schemas';
+import { bucketClass, topCountries } from '../utils/visitor-map';
+import raw from '../data/visitors.json';
+
+const data = visitorsSchema.parse(raw);
+const max = Math.max(0, ...Object.values(data.countries));
+const top = topCountries(data.countries, 8);
+const classFor = (id: string) => bucketClass(data.countries[id.toUpperCase()] ?? 0, max);
+const updatedStr = data.updated
+  ? new Date(`${data.updated}T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+  : '';
+---
+<BaseLayout title="Visitors — Saiful Islam Salim">
+  <Section title="Visitors" eyebrow="Around the world">
+    {data.total > 0 ? (
+      <p class="muted">{data.total.toLocaleString('en-US')} visits · Updated {updatedStr}</p>
+    ) : (
+      <p class="muted">Collecting data — check back soon.</p>
+    )}
+
+    <svg class="vmap" viewBox={world.viewBox} role="img" aria-label="World map shaded by visitor count per country">
+      {world.locations.map(l => (
+        <path d={l.path} class={`c ${classFor(l.id)}`}><title>{l.name}</title></path>
+      ))}
+    </svg>
+
+    {top.length > 0 && (
+      <div class="vtop">
+        <p class="eyebrow" style="margin-bottom:.4rem">Top countries</p>
+        <ol class="vtop-list">
+          {top.map(t => <li><span>{t.name}</span><span class="muted">{t.count.toLocaleString('en-US')}</span></li>)}
+        </ol>
+      </div>
+    )}
+
+    <p class="muted credit">
+      Counted privately by <a href="https://www.goatcounter.com" target="_blank" rel="noopener noreferrer">GoatCounter</a> (no cookies) ·
+      Map: <a href="https://github.com/VictorCazanave/svg-maps" target="_blank" rel="noopener noreferrer">svg-maps/world</a> (CC BY 4.0)
+    </p>
+  </Section>
+</BaseLayout>
+
+<style>
+.vmap{width:100%;height:auto;margin-top:1.2rem}
+.vmap .c{fill:var(--surface-elev);stroke:var(--border);stroke-width:.5}
+.vmap .v1{fill:color-mix(in oklab,var(--accent) 25%,var(--surface-elev))}
+.vmap .v2{fill:color-mix(in oklab,var(--accent) 45%,var(--surface-elev))}
+.vmap .v3{fill:color-mix(in oklab,var(--accent) 68%,var(--surface-elev))}
+.vmap .v4{fill:var(--accent)}
+.vtop{margin-top:1.6rem;max-width:26rem}
+.vtop-list{list-style:none;margin:0;padding:0;counter-reset:vtop}
+.vtop-list li{display:flex;justify-content:space-between;gap:1rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.92rem}
+.credit{font-size:.75rem;margin-top:1.6rem}
+</style>

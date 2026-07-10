@@ -10,6 +10,14 @@
     "check": "astro check",
     "test": "vitest run"
   },
-  "dependencies": { "astro": "^5.0.0", "zod": "^3.23.0" },
-  "devDependencies": { "@astrojs/check": "^0.9.0", "typescript": "^5.6.0", "vitest": "^2.1.0" }
+  "dependencies": {
+    "@svg-maps/world": "^2.0.0",
+    "astro": "^5.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
 }
