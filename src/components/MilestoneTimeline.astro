@@ -1,0 +1,28 @@
+---
+import MilestoneItem from './MilestoneItem.astro';
+import { groupByYear, type Milestone } from '../utils/milestones';
+
+interface Props { milestones: Milestone[]; }
+const { milestones } = Astro.props;
+const groups = groupByYear(milestones);
+// within each year, pinned first then by date desc (groupByYear already kept date desc)
+const sortYear = (items: Milestone[]) => [...items].sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || b.date.getTime() - a.date.getTime());
+---
+{groups.length === 0 ? (
+  <p class="muted">No events yet.</p>
+) : (
+  <div class="mstl">
+    {groups.map(g => (
+      <section class="mstl-year">
+        <h3 class="mstl-year-h">{g.year}</h3>
+        <ul>{sortYear(g.items).map(m => <MilestoneItem milestone={m} />)}</ul>
+      </section>
+    ))}
+  </div>
+)}
+
+<style>
+.mstl-year + .mstl-year{margin-top:1.6rem}
+.mstl-year-h{font-size:1.2rem;color:var(--text);margin:0 0 .5rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
+.mstl ul{list-style:none;margin:0;padding:0}
+</style>

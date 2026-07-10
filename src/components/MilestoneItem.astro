@@ -1,0 +1,27 @@
+---
+const KIND_LABEL: Record<string, string> = {
+  award: 'Award', talk: 'Talk', education: 'Education', service: 'Service', news: 'Publication',
+};
+interface Props { milestone: { date: Date; kind: string; title: string; detail?: string; href?: string; pinned?: boolean; }; }
+const { milestone: m } = Astro.props;
+// Milestone dates are UTC midnights; format in UTC or they render a day early.
+const dateStr = m.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+---
+<li class={`ms ms--${m.kind}${m.pinned ? ' ms--pinned' : ''}`}>
+  <span class="ms-kind">{KIND_LABEL[m.kind] ?? m.kind}</span>
+  <span class="ms-date">{dateStr}</span>
+  <p class="ms-title">{m.href ? <a href={m.href} target="_blank" rel="noopener noreferrer">{m.title}</a> : m.title}</p>
+  {m.detail && <p class="ms-detail muted">{m.detail}</p>}
+</li>
+
+<style>
+.ms{list-style:none;padding:.45rem 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:auto auto 1fr;column-gap:.7rem;row-gap:.2rem;align-items:baseline}
+.ms-kind{font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.ms--award .ms-kind{color:var(--badge-fg)}
+.ms-date{font-size:.78rem;color:var(--muted);grid-column:2}
+.ms-title{grid-column:1 / -1;margin:.1rem 0 0;color:var(--text);font-weight:600}
+.ms-title a{color:var(--text);text-decoration:none}
+.ms-title a:hover{color:var(--accent)}
+.ms-detail{grid-column:1 / -1;font-size:.82rem;margin:.2rem 0 0}
+.ms--pinned .ms-title::before{content:'★ ';color:var(--badge-fg)}
+</style>
