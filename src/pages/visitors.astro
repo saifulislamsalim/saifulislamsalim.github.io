@@ -50,7 +50,9 @@ const updatedStr = data.updated
   (function () {
     var el = document.querySelector('[data-live-total]');
     if (!el) return;
-    fetch('https://saifulislamsalim.goatcounter.com/counter/TOTAL.json')
+    // start= makes it all-time; without it the endpoint defaults to today only.
+    // This endpoint wants date-only (YYYY-MM-DD) — full ISO datetimes are a 400.
+    fetch('https://saifulislamsalim.goatcounter.com/counter/TOTAL.json?start=2026-07-01')
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d) return;
