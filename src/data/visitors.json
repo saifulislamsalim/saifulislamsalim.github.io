@@ -1,12 +1,13 @@
 {
   "updated": "2026-09-15",
-  "total": 80,
+  "total": 81,
   "countries": {
     "US": 60,
     "BD": 9,
     "BR": 6,
     "KR": 3,
     "GB": 1,
-    "IL": 1
+    "IL": 1,
+    "PK": 1
   }
 }
